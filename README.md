@@ -1,11 +1,24 @@
-# My Personal Project
+# Bug Tracker
 
-## A subtitle
+## Proposal
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+One of the major problems that every developer has to face when working on a project-at any stage of development-is
+**bugs**. They are unavoidable, even the best programmers in the world end up with bugs in their code from time to time.
+Not only are they unavoidable, but they can wreak havoc on your program and be very frustrating to fix.
+ 
+From the moment you start working on a new project you should have a good solution for tracking your bugs. It is
+essential, not just to minimize the defects in your program early on, but to maximize your productivity in the later 
+stages. 
+ 
+That is why I've created Bug Tracker, a simple bug tracking tool that allows the user to keep track of all the issues 
+that are going on within their projects. With no limit on the number of projects that can be handled at once. Within 
+each individual project there are tools to **view all the current and past bugs**, including the ability to **add**, 
+**modify** and **delete** issues as they are handled. With options for **sorting bugs by their severity** and 
+**assigning tasks to team members**. All of this within a visually appealing and easy to use desktop application. 
 
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+**Who is this project for?**
+- Software Developers
+- Quality Assurance Teams
+
+*However this project is not just limited to software developers and QA teams, in almost any kind of project that you
+can create you may run into problems and issues that you have to deal with, and for that this tool can be invaluable.*
