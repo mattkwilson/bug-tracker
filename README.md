@@ -22,3 +22,10 @@ For each individual project there are tools to **view all the current and past b
 
 *However this project is not just limited to software developers and QA teams, in almost any kind of project that you
 can create you may run into problems and issues that you have to deal with, and for that this tool can be invaluable.*
+
+## User Stories
+
+- As a user, I want to be able to create a new project and add it to my list of tracked projects
+- As a user, I want to be able to define a new bug and add it to one of my projects
+- As a user, I want to be able to view the list of current bugs of a project
+- As a user, I want to be able to mark a bug as fixed and remove it from the list of current bugs
