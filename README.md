@@ -11,8 +11,8 @@ essential, not just to minimize the defects in your program early on, but to max
 stages. 
  
 That is why I've created Bug Tracker, a simple bug tracking tool that allows the user to keep track of all the issues 
-that are going on within their projects. With no limit on the number of projects that can be handled at once. Within 
-each individual project there are tools to **view all the current and past bugs**, including the ability to **add**, 
+that are going on within their projects. Within Bug Tracker you can create profiles for all of your different projects. 
+For each individual project there are tools to **view all the current and past bugs**, including the ability to **add**, 
 **modify** and **delete** issues as they are handled. With options for **sorting bugs by their severity** and 
 **assigning tasks to team members**. All of this within a visually appealing and easy to use desktop application. 
 
