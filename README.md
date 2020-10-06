@@ -25,7 +25,7 @@ can create you may run into problems and issues that you have to deal with, and 
 
 ## User Stories
 
-- As a user, I want to be able to create a new project and add it to my list of tracked projects
-- As a user, I want to be able to define a new bug and add it to one of my projects
-- As a user, I want to be able to view the list of current bugs of a project
-- As a user, I want to be able to mark a bug as fixed and remove it from the list of current bugs
+- As a user, I want to be able to create a new project and add it to a list of projects
+- As a user, I want to be able to select a project and add a new bug to the project
+- As a user, I want to be able to select a bug in a project and mark it as resolved
+- As a user, I want to be able to select a project and view a list of the unresolved bugs in that project
