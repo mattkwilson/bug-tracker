@@ -4,7 +4,6 @@ import model.Bug;
 import model.Project;
 import model.ProjectManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -61,84 +60,123 @@ public class BugTracker {
         switch(inputState){
             case MAIN_MENU:
                 System.out.println("\nYou are currently in the main menu.");
-                System.out.println("Type 'new' to create a new project.");
-                if (projectManager.getSize() > 0) {
-                    System.out.println("Type 'select' to select a project.");
-                }
+                printMainMenuCommands();
                 break;
             case IN_PROJECT:
                 System.out.println("\nYou are currently in a project view.");
-                System.out.println("Type 'add' to add a new bug to the project.");
-                if (selectedProject.getTotalNumberOfBugs() > 0) {
-                    System.out.println("Type 'view' to view a list of all the unresolved bugs in the project.");
-                    System.out.println("Type 'select' to select a bug.");
-                }
-                System.out.println("Type 'back' to go back to the main menu.");
+                printProjectCommands();
                 break;
             case IN_BUG:
                 System.out.println("\nYou are currently in a bug view.");
-                System.out.println("Type 'resolve' to mark the bug as resolved.");
-                System.out.println("Type 'back' to go back to the project menu.");
+                printBugCommands();
                 break;
         }
         System.out.println("Type 'exit' to quit.");
     }
 
+    // EFFECTS: prints a list of the current main menu commands
+    private void printMainMenuCommands() {
+        System.out.println("Type 'new' to create a new project.");
+        if (projectManager.getSize() > 0) {
+            System.out.println("Type 'select' to select a project.");
+        }
+    }
+
+    // EFFECTS: prints a list of the current project commands
+    private void printProjectCommands() {
+        System.out.println("Type 'add' to add a new bug to the project.");
+        if (selectedProject.getTotalNumberOfBugs() > 0) {
+            System.out.println("Type 'view' to view a list of all the unresolved bugs in the project.");
+            System.out.println("Type 'select' to select a bug.");
+        }
+        System.out.println("Type 'back' to go back to the main menu.");
+    }
+
+    // EFFECTS: prints a list of the current bug commands
+    private void printBugCommands() {
+        System.out.println("Type 'resolve' to mark the bug as resolved.");
+        System.out.println("Type 'back' to go back to the project menu.");
+    }
+
     // MODIFIES: this
     // EFFECTS: processes user input
     private void processInput(String input) {
+        boolean isInputProcessed = false;
         switch(inputState){
             case MAIN_MENU:
-                switch(input){
-                    case "new":
-                        newProject();
-                        return;
-                    case "select":
-                        if (projectManager.getSize() > 0) {
-                            selectProject();
-                        }else {
-                            System.out.println("There are currently no projects to select.");
-                        }
-                        return;
-                }
+                isInputProcessed = processMainMenuCommands(input);
                 break;
             case IN_PROJECT:
-                switch(input){
-                    case "add":
-                        addBug();
-                        return;
-                    case "view":
-                        if (selectedProject.getTotalNumberOfBugs() > 0) {
-                            viewBugs();
-                        }else {
-                            System.out.println("There are currently no bugs in the project to view.");
-                        }
-                        return;
-                    case "select":
-                        if (selectedProject.getTotalNumberOfBugs() > 0) {
-                            selectBug();
-                        }else {
-                            System.out.println("There are currently no bugs in the project to select.");
-                        }
-                        return;
-                    case "back":
-                        back();
-                        return;
-                }
+                isInputProcessed = processProjectCommands(input);
                 break;
             case IN_BUG:
-                switch(input){
-                    case "resolve":
-                        resolveBug();
-                        return;
-                    case "back":
-                        back();
-                        return;
-                }
+                isInputProcessed = processBugCommands(input);
                 break;
         }
-        System.out.println("Unrecognized input... " +
-                "type 'help' for the list of available commands");
+        if (!isInputProcessed) {
+            System.out.println("Unrecognized input... " +
+                    "type 'help' for the list of available commands");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes commands given in the main menu; returns true if input is recognized as a command
+    private boolean processMainMenuCommands(String input) {
+        switch(input){
+            case "new":
+                newProject();
+                return true;
+            case "select":
+                if (projectManager.getSize() > 0) {
+                    selectProject();
+                }else {
+                    System.out.println("There are currently no projects to select.");
+                }
+                return true;
+        }
+        return false;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes commands given in the project view; returns true if input is recognized as a command
+    private boolean processProjectCommands(String input) {
+        switch(input){
+            case "add":
+                addBug();
+                return true;
+            case "view":
+                if (selectedProject.getTotalNumberOfBugs() > 0) {
+                    viewBugs();
+                }else {
+                    System.out.println("There are currently no bugs in the project to view.");
+                }
+                return true;
+            case "select":
+                if (selectedProject.getTotalNumberOfBugs() > 0) {
+                    selectBug();
+                }else {
+                    System.out.println("There are currently no bugs in the project to select.");
+                }
+                return true;
+            case "back":
+                back();
+                return true;
+        }
+        return false;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes commands given in the bug view; returns true if input is recognized as a command
+    private boolean processBugCommands(String input) {
+        switch(input){
+            case "resolve":
+                resolveBug();
+                return true;
+            case "back":
+                back();
+                return true;
+        }
+        return false;
     }
 
     // REQUIRES: inputState == InputState.MAIN_MENU

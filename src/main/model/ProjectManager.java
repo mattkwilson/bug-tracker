@@ -15,9 +15,9 @@ public class ProjectManager {
     }
 
     // Create a new project
+    // REQUIRES: the name is not an empty string
     // MODIFIES: this
-    // EFFECTS: if name is not empty, then it returns true and creates a new tracked project with the given name and
-    //           description, else returns false
+    // EFFECTS: creates a new tracked project with the given name and description
     public void createNewProject(String name, String description) {
         Project project = new Project(name, description);
         projects.add(project);

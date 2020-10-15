@@ -21,7 +21,7 @@ public class BugTest {
     }
 
     @Test
-    public void setResultsTest() {
+    public void setResolvedTest() {
         bug.SetResolved();
         assertTrue(bug.isResolved());
     }

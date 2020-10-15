@@ -82,6 +82,7 @@ public class ProjectTest {
         project.addNewBug("bug3", "info3");
         Bug bug1 = project.getBugByIndex(0);
         Bug bug2 = project.getBugByIndex(1);
+        Bug bug3 = project.getBugByIndex(2);
 
         List<Bug> unresolvedBugs = project.getUnresolvedBugsList();
         assertEquals(3, unresolvedBugs.size());
