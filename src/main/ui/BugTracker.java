@@ -30,7 +30,7 @@ public class BugTracker {
 
         do {
             input = scanner.next();
-            switch(input){
+            switch (input) {
                 case "help":
                     help();
                     break;
@@ -57,7 +57,7 @@ public class BugTracker {
 
     // EFFECTS: prints the current list of available commands
     private void help() {
-        switch(inputState){
+        switch (inputState) {
             case MAIN_MENU:
                 System.out.println("\nYou are currently in the main menu.");
                 printMainMenuCommands();
@@ -102,7 +102,7 @@ public class BugTracker {
     // EFFECTS: processes user input
     private void processInput(String input) {
         boolean isInputProcessed = false;
-        switch(inputState){
+        switch (inputState) {
             case MAIN_MENU:
                 isInputProcessed = processMainMenuCommands(input);
                 break;
@@ -114,22 +114,22 @@ public class BugTracker {
                 break;
         }
         if (!isInputProcessed) {
-            System.out.println("Unrecognized input... " +
-                    "type 'help' for the list of available commands");
+            System.out.println("Unrecognized input... "
+                    + "type 'help' for the list of available commands");
         }
     }
 
     // MODIFIES: this
     // EFFECTS: processes commands given in the main menu; returns true if input is recognized as a command
     private boolean processMainMenuCommands(String input) {
-        switch(input){
+        switch (input) {
             case "new":
                 newProject();
                 return true;
             case "select":
                 if (projectManager.getSize() > 0) {
                     selectProject();
-                }else {
+                } else {
                     System.out.println("There are currently no projects to select.");
                 }
                 return true;
@@ -140,21 +140,21 @@ public class BugTracker {
     // MODIFIES: this
     // EFFECTS: processes commands given in the project view; returns true if input is recognized as a command
     private boolean processProjectCommands(String input) {
-        switch(input){
+        switch (input) {
             case "add":
                 addBug();
                 return true;
             case "view":
                 if (selectedProject.getTotalNumberOfBugs() > 0) {
                     viewBugs();
-                }else {
+                } else {
                     System.out.println("There are currently no bugs in the project to view.");
                 }
                 return true;
             case "select":
                 if (selectedProject.getTotalNumberOfBugs() > 0) {
                     selectBug();
-                }else {
+                } else {
                     System.out.println("There are currently no bugs in the project to select.");
                 }
                 return true;
@@ -168,7 +168,7 @@ public class BugTracker {
     // MODIFIES: this
     // EFFECTS: processes commands given in the bug view; returns true if input is recognized as a command
     private boolean processBugCommands(String input) {
-        switch(input){
+        switch (input) {
             case "resolve":
                 resolveBug();
                 return true;
@@ -196,7 +196,7 @@ public class BugTracker {
 
         projectManager.createNewProject(projectName, projectDescription);
         System.out.println("\nA new project has been created titled: " + projectName);
-        if(!projectDescription.isEmpty()) {
+        if (!projectDescription.isEmpty()) {
             System.out.println("With the description: " + projectDescription);
         }
     }
@@ -207,7 +207,7 @@ public class BugTracker {
     private void selectProject() {
         System.out.println("\nHere is the current list of projects:");
         int size = projectManager.getSize();
-        for (int i=0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             Project project = projectManager.getProjectByIndex(i);
             System.out.println(i + " : " + project.getName());
         }
@@ -220,7 +220,7 @@ public class BugTracker {
         selectedProject = projectManager.getProjectByIndex(index);
         if (selectedProject != null) {
             setInputState(InputState.IN_PROJECT);
-        }else {
+        } else {
             System.out.println("\nNo project exists with that name... returning to main menu.");
             setInputState(InputState.MAIN_MENU);
         }
@@ -243,7 +243,7 @@ public class BugTracker {
 
         selectedProject.addNewBug(bugName, bugInfo);
         System.out.println("\nA new bug has been added to the project titled: " + bugName);
-        if(!bugInfo.isEmpty()) {
+        if (!bugInfo.isEmpty()) {
             System.out.println("Information: " + bugInfo);
         }
     }
@@ -270,7 +270,7 @@ public class BugTracker {
     private void selectBug() {
         System.out.println("\nHere is the current list of bugs:");
         int numberOfBugs = selectedProject.getTotalNumberOfBugs();
-        for (int i=0; i<numberOfBugs; i++) {
+        for (int i = 0; i < numberOfBugs; i++) {
             Bug bug = selectedProject.getBugByIndex(i);
             System.out.println(i + " : " + bug.getTitle());
         }
@@ -283,7 +283,7 @@ public class BugTracker {
         selectedBug = selectedProject.getBugByIndex(index);
         if (selectedBug != null) {
             setInputState(InputState.IN_BUG);
-        }else {
+        } else {
             System.out.println("\nNo bug exists with that name... returning to project.");
             setInputState(InputState.IN_PROJECT);
         }
@@ -293,7 +293,7 @@ public class BugTracker {
     // MODIFIES: this
     // EFFECTS: marks the currently selected bug as resolved
     private void resolveBug() {
-        selectedBug.SetResolved();
+        selectedBug.setResolved();
         System.out.println("\n" + selectedBug.getTitle() + " has been set as resolved.");
     }
 
@@ -301,7 +301,7 @@ public class BugTracker {
     // MODIFIES: this
     // EFFECTS: switches back to the previous input state
     private void back() {
-        switch(inputState){
+        switch (inputState) {
             case IN_PROJECT:
                 System.out.println("\nMoving back to main menu...");
                 setInputState(InputState.MAIN_MENU);
@@ -319,7 +319,7 @@ public class BugTracker {
     // EFFECTS: set the input state and print related information about the state
     private void setInputState(InputState inputState) {
         this.inputState = inputState;
-        switch(inputState){
+        switch (inputState) {
             case MAIN_MENU:
                 selectedProject = null;
                 selectedBug = null;

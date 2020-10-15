@@ -36,7 +36,7 @@ public class Bug {
     // REQUIRES: isResolved == false
     // MODIFIES: this
     // EFFECTS: marks the bug as a resolved
-    public void SetResolved() {
+    public void setResolved() {
         isResolved = true;
     }
 }

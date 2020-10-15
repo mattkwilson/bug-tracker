@@ -49,9 +49,9 @@ public class ProjectTest {
         project.addNewBug("bug2", "info2");
         project.addNewBug("bug3", "info3");
 
-        project.getBugByIndex(0).SetResolved();
-        project.getBugByIndex(1).SetResolved();
-        project.getBugByIndex(2).SetResolved();
+        project.getBugByIndex(0).setResolved();
+        project.getBugByIndex(1).setResolved();
+        project.getBugByIndex(2).setResolved();
 
         List<Bug> unresolvedBugs = project.getUnresolvedBugsList();
         assertTrue(unresolvedBugs.isEmpty());
@@ -64,9 +64,9 @@ public class ProjectTest {
         project.addNewBug("bug3", "info3");
         project.addNewBug("bug4", "info4");
 
-        project.getBugByIndex(0).SetResolved();
+        project.getBugByIndex(0).setResolved();
         Bug bug2 = project.getBugByIndex(1);
-        project.getBugByIndex(2).SetResolved();
+        project.getBugByIndex(2).setResolved();
         Bug bug4 = project.getBugByIndex(3);
 
         List<Bug> unresolvedBugs = project.getUnresolvedBugsList();

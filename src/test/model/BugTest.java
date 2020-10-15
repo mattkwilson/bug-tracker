@@ -22,7 +22,7 @@ public class BugTest {
 
     @Test
     public void setResolvedTest() {
-        bug.SetResolved();
+        bug.setResolved();
         assertTrue(bug.isResolved());
     }
 }
