@@ -29,3 +29,5 @@ can create you may run into problems and issues that you have to deal with, and 
 - As a user, I want to be able to select a project and add a new bug to the project
 - As a user, I want to be able to select a bug in a project and mark it as resolved
 - As a user, I want to be able to select a project and view a list of the unresolved bugs in that project
+- As a user, I want to be able to save my projects to file and have them automatically saved if I forget
+- As a user, I want to be able to select and load a project I have previously saved to file
