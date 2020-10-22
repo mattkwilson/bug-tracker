@@ -1,16 +1,21 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.SavableData;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // @author Matthew Wilson
 // Handles a list of projects
-public class ProjectManager {
+public class ProjectManager extends SavableData {
     private List<Project> projects;
 
     // Constructor
-    // EFFECTS: creates an empty projects list
-    public ProjectManager() {
+    // EFFECTS: constructs a project manager with a fileName and empty projects list
+    public ProjectManager(String fileName) {
+        super(fileName);
         this.projects = new ArrayList<>();
     }
 
@@ -36,4 +41,23 @@ public class ProjectManager {
         return projects.size();
     }
 
+    @Override
+    public JSONObject getDataObject() {
+        JSONArray dataArray = new JSONArray();
+        for (Project project : projects) {
+            dataArray.put(project.getDataObject());
+        }
+        dataObject.put("projects", dataArray);
+        return dataObject;
+    }
+
+    @Override
+    public void parseDataObject(JSONObject dataObject) {
+        JSONArray projectsData = dataObject.getJSONArray("projects");
+        for (Object projectObj : projectsData) {
+            Project project = new Project("placeholder", "");
+            project.parseDataObject((JSONObject) projectObj);
+            projects.add(project);
+        }
+    }
 }

@@ -1,11 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // @author Matthew Wilson
 // A representation of a development project
-public class Project {
+public class Project extends Serializable {
     private String name;
     private String description;
     private List<Bug> bugs;
@@ -62,5 +66,30 @@ public class Project {
     // EFFECTS: returns the total number of bugs in the project
     public int getTotalNumberOfBugs() {
         return bugs.size();
+    }
+
+    @Override
+    public JSONObject getDataObject() {
+        dataObject.put("name", name);
+        dataObject.put("description", description);
+
+        JSONArray dataArray = new JSONArray();
+        for (Bug bug : bugs) {
+            dataArray.put(bug.getDataObject());
+        }
+        dataObject.put("bugs", dataArray);
+        return dataObject;
+    }
+
+    @Override
+    public void parseDataObject(JSONObject dataObject) {
+        name = dataObject.getString("name");
+        description = dataObject.getString("description");
+        JSONArray bugsData = dataObject.getJSONArray("bugs");
+        for (Object bugObj : bugsData) {
+            Bug bug = new Bug("placeholder", "");
+            bug.parseDataObject((JSONObject) bugObj);
+            bugs.add(bug);
+        }
     }
 }

@@ -11,7 +11,7 @@ public class ProjectManagerTest {
 
     @BeforeEach
     public void setup() {
-        projectManager = new ProjectManager();
+        projectManager = new ProjectManager("");
     }
 
     @Test

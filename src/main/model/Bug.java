@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Serializable;
+
 // @author Matthew Wilson
 // The representation of an issue that is occurring with the project
 // NOTE: the word bug and issue are used interchangeably throughout the project to mean the same thing (a problem
 //        within the project that needs resolving)
-public class Bug {
+public class Bug extends Serializable {
     private String title;
     private String info;
     private boolean isResolved;
@@ -38,5 +41,20 @@ public class Bug {
     // EFFECTS: marks the bug as a resolved
     public void setResolved() {
         isResolved = true;
+    }
+
+    @Override
+    public JSONObject getDataObject() {
+        dataObject.put("title", title);
+        dataObject.put("info", info);
+        dataObject.put("isResolved", isResolved);
+        return dataObject;
+    }
+
+    @Override
+    public void parseDataObject(JSONObject dataObject) {
+        title = dataObject.getString("title");
+        info = dataObject.getString("info");
+        isResolved = dataObject.getBoolean("isResolved");
     }
 }

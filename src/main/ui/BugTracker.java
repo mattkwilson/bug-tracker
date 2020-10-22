@@ -3,13 +3,17 @@ package ui;
 import model.Bug;
 import model.Project;
 import model.ProjectManager;
+import persistence.Serialization;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 // Bug tracking application
 public class BugTracker {
 
+    private static final String FILE_NAME = "BugTrackerData";
     private Scanner scanner;
     private ProjectManager projectManager;
     private InputState inputState;
@@ -35,6 +39,7 @@ public class BugTracker {
                     help();
                     break;
                 case "exit":
+                    exit();
                     terminated = true;
                     break;
                 default:
@@ -42,17 +47,35 @@ public class BugTracker {
                     break;
             }
         } while (!terminated);
-
-        System.out.println("\nExiting");
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes the project manager
+    // EFFECTS: initializes the project manager and sets the input state to the main menu;
+    //           tries to load past saved data from file, if that fails -> initializes a new project manager
     private void initialize() {
         System.out.println("initializing...");
         scanner = new Scanner(System.in);
-        projectManager = new ProjectManager();
+        try {
+            projectManager = Serialization.loadProjectManagerFromFile(FILE_NAME);
+            System.out.println("Data loaded from file.");
+        } catch (IOException e) {
+            projectManager = new ProjectManager(FILE_NAME);
+            System.out.println("New project manager initialized.");
+        }
+
         setInputState(InputState.MAIN_MENU);
+    }
+
+    // EFFECTS: saves the current state of the project manager and exits
+    private void exit() {
+        System.out.println("\nSaving...");
+        try {
+            Serialization.saveToFile(projectManager);
+            System.out.println("Saved successfully!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Saving failed: " + e);
+        }
+        System.out.println("Exiting");
     }
 
     // EFFECTS: prints the current list of available commands
