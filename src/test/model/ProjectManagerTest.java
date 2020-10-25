@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -58,5 +60,33 @@ public class ProjectManagerTest {
         assertEquals(1, projectManager.getSize());
         projectManager.createNewProject("project2", "description2");
         assertEquals(2, projectManager.getSize());
+    }
+
+    @Test
+    public void getDataObjectTest() {
+        projectManager.createNewProject("projectOne", "");
+        projectManager.createNewProject("projectTwo", "");
+        JSONObject dataObject = projectManager.getDataObject();
+
+        JSONArray projectsData = dataObject.getJSONArray("projects");
+        assertEquals("projectOne", ((JSONObject)projectsData.get(0)).getString("name"));
+        assertEquals("projectTwo", ((JSONObject)projectsData.get(1)).getString("name"));
+    }
+
+    @Test
+    public void parseDataObjectTest() {
+        JSONObject dataObject = new JSONObject();
+
+        JSONArray dataArray = new JSONArray();
+        Project projectOne = new Project("projectOne", "");
+        Project projectTwo = new Project("projectTwo", "");
+
+        dataArray.put(projectOne.getDataObject());
+        dataArray.put(projectTwo.getDataObject());
+        dataObject.put("projects", dataArray);
+
+        projectManager.parseDataObject(dataObject);
+        assertEquals("projectOne", projectManager.getProjectByIndex(0).getName());
+        assertEquals("projectTwo", projectManager.getProjectByIndex(1).getName());
     }
 }

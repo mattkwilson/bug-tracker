@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,26 @@ public class BugTest {
     @Test
     public void setResolvedTest() {
         bug.setResolved();
+        assertTrue(bug.isResolved());
+    }
+
+    @Test
+    public void getDataObjectTest() {
+        JSONObject dataObject = bug.getDataObject();
+        assertEquals("bugOne", dataObject.getString("title"));
+        assertEquals("info", dataObject.getString("info"));
+        assertFalse(dataObject.getBoolean("isResolved"));
+    }
+
+    @Test
+    public void parseDataObjectTest() {
+        JSONObject dataObject = new JSONObject();
+        dataObject.put("title", "bugTitle");
+        dataObject.put("info", "bugInfo");
+        dataObject.put("isResolved", true);
+        bug.parseDataObject(dataObject);
+        assertEquals("bugTitle", bug.getTitle());
+        assertEquals("bugInfo", bug.getInfo());
         assertTrue(bug.isResolved());
     }
 }

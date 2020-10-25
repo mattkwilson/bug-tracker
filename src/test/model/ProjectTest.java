@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -115,5 +117,38 @@ public class ProjectTest {
         assertEquals(1, project.getTotalNumberOfBugs());
         project.addNewBug("bug2", "info2");
         assertEquals(2, project.getTotalNumberOfBugs());
+    }
+
+    @Test
+    public void getDataObjectTest() {
+        project.addNewBug("bugOne", "");
+        project.addNewBug("bugTwo", "");
+        JSONObject dataObject = project.getDataObject();
+
+        assertEquals("projectOne", dataObject.getString("name"));
+        assertEquals("description", dataObject.getString("description"));
+        JSONArray bugsData = dataObject.getJSONArray("bugs");
+        assertEquals("bugOne", ((JSONObject)bugsData.get(0)).getString("title"));
+        assertEquals("bugTwo", ((JSONObject)bugsData.get(1)).getString("title"));
+    }
+
+    @Test
+    public void parseDataObjectTest() {
+        JSONObject dataObject = new JSONObject();
+        dataObject.put("name", "projectName");
+        dataObject.put("description", "projectDescription");
+
+        JSONArray dataArray = new JSONArray();
+        Bug bug1 = new Bug("bugOne", "");
+        Bug bug2 = new Bug("bugTwo", "");
+        dataArray.put(bug1.getDataObject());
+        dataArray.put(bug2.getDataObject());
+        dataObject.put("bugs", dataArray);
+
+        project.parseDataObject(dataObject);
+        assertEquals("projectName", project.getName());
+        assertEquals("projectDescription", project.getDescription());
+        assertEquals("bugOne", project.getBugByIndex(0).getTitle());
+        assertEquals("bugTwo", project.getBugByIndex(1).getTitle());
     }
 }
