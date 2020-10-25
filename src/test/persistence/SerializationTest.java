@@ -3,8 +3,10 @@ package persistence;
 import model.Bug;
 import model.Project;
 import model.ProjectManager;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,8 +19,8 @@ public class SerializationTest {
         try {
             ProjectManager projectManager = new ProjectManager("invalid<Filename");
             Serialization.saveToFile(projectManager);
-            fail("IOException was expected.");
-        } catch (IOException e) {
+            fail("FileNotFoundException was expected.");
+        } catch (FileNotFoundException e) {
             // success
         }
     }
@@ -32,7 +34,7 @@ public class SerializationTest {
             projectManager = Serialization.loadProjectManagerFromFile("EmptyBugTrackerTestSaveData");
             assertEquals(0, projectManager.getSize());
         } catch (IOException e) {
-            fail("The file could not be read");
+            fail(e.toString());
         }
     }
 
@@ -55,7 +57,7 @@ public class SerializationTest {
             projectManager = Serialization.loadProjectManagerFromFile("BugTrackerTestSaveData");
             testProjectManagerForBugTrackerTestLoadData(projectManager);
         } catch (IOException e) {
-            fail("The file could not be read");
+            fail(e.toString());
         }
     }
 
@@ -66,6 +68,18 @@ public class SerializationTest {
             fail("IOException was expected.");
         } catch (IOException e) {
             // success
+        }
+    }
+
+    @Test
+    public void loadProjectManagerFromFileTestJSONException() {
+        try {
+            Serialization.loadProjectManagerFromFile("BugTrackerTestJSONException");
+            fail("JSONException was expected.");
+        } catch (JSONException e) {
+            // success
+        } catch (IOException e) {
+            fail("The file could not be read.");
         }
     }
 
@@ -84,7 +98,7 @@ public class SerializationTest {
         try {
             ProjectManager projectManager = Serialization.loadProjectManagerFromFile("BugTrackerTestLoadData");
             testProjectManagerForBugTrackerTestLoadData(projectManager);
-        } catch (Exception e) {
+        } catch (IOException e) {
             fail("The file could not be read.");
         }
     }

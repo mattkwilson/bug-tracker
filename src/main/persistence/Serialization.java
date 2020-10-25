@@ -1,6 +1,7 @@
 package persistence;
 
 import model.ProjectManager;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -35,8 +36,9 @@ public final class Serialization {
 
     // Load a Project Manager
     // EFFECTS: loads a Project Manager from file;
-    //           throws an IOException if an error occurs when reading the file
-    public static ProjectManager loadProjectManagerFromFile(String fileName) throws IOException {
+    //           throws an IOException if an error occurs when reading the file;
+    //           throws a JSONException if the file can not be parsed
+    public static ProjectManager loadProjectManagerFromFile(String fileName) throws IOException, JSONException {
         String path = DATA_PATH + fileName + DATA_EXTENSION;
         String fileData = readFile(Paths.get(path));
         JSONObject dataObject = new JSONObject(fileData);
@@ -52,7 +54,7 @@ public final class Serialization {
     private static String readFile(Path path) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(path, StandardCharsets.UTF_8)) {
-            stream.forEach(s -> stringBuilder.append(s));
+            stream.forEach(stringBuilder::append);
         }
         return stringBuilder.toString();
     }

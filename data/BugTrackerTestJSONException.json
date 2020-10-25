@@ -1,0 +1,27 @@
+{"projects": [
+    {
+        "bugs": [
+            {
+                "title": "bug1",
+                "isResolved": true,
+                "info": "Test bug one"
+            },
+            {
+                "title": "bug2",
+                "sourceOfError": false,
+                "info": "Test bug two"
+            }
+        ],
+        "name": "project1",
+        "description": "Test project one"
+    },
+    {
+        "bugs": [{
+            "title": "bug1",
+            "isResolved": false,
+            "info": "Test bug one"
+        }],
+        "name": "project2",
+        "description": "Test project two"
+    }
+]}

@@ -1,5 +1,6 @@
 package persistence;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 // @author Matthew Wilson
@@ -19,6 +20,7 @@ public abstract class Serializable {
     public abstract JSONObject getDataObject();
 
     // Parse the data
-    // EFFECTS: sets the internal state of this object using dataObject
-    public abstract void parseDataObject(JSONObject dataObject);
+    // EFFECTS: sets the internal state of this object using dataObject;
+    //           or throws a JSONException if the dataObject can not be parsed
+    public abstract void parseDataObject(JSONObject dataObject) throws JSONException;
 }
