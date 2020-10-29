@@ -4,6 +4,7 @@ import model.Bug;
 import model.Project;
 import model.ProjectManager;
 import org.json.JSONException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -16,6 +17,10 @@ public class SerializationTest {
 
     @Test
     public void saveToFileTestInvalidFileName() {
+        // Call to default constructor to complete code coverage
+        new SerializationTest();
+        // - as allowed by the instructors
+
         try {
             ProjectManager projectManager = new ProjectManager("invalid<Filename");
             Serialization.saveToFile(projectManager);
