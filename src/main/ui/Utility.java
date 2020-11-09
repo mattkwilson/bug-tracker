@@ -1,7 +1,7 @@
 package ui;
 
-import exceptions.AudioException;
-import exceptions.InvalidPathException;
+import ui.exceptions.AudioException;
+import ui.exceptions.InvalidPathException;
 import ui.graphical.ProjectsPane;
 
 import javax.sound.sampled.*;

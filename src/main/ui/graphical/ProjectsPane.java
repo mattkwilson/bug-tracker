@@ -1,6 +1,5 @@
 package ui.graphical;
 
-import exceptions.InvalidPathException;
 import model.Project;
 import model.ProjectManager;
 import ui.Utility;
