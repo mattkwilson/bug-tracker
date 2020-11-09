@@ -1,4 +1,4 @@
-package ui;
+package ui.console;
 
 // The representation of the different states of the input handler
 public enum InputState {

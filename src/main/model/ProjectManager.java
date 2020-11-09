@@ -22,10 +22,11 @@ public class ProjectManager extends SavableData {
     // Create a new project
     // REQUIRES: the name is not an empty string
     // MODIFIES: this
-    // EFFECTS: creates a new tracked project with the given name and description
-    public void createNewProject(String name, String description) {
+    // EFFECTS: creates a new tracked project with the given name and description and then returns it
+    public Project createNewProject(String name, String description) {
         Project project = new Project(name, description);
         projects.add(project);
+        return project;
     }
 
     // Get a project by index

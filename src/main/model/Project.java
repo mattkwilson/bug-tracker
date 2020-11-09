@@ -36,10 +36,11 @@ public class Project extends Serializable {
     // Add a new bug
     // MODIFIES: this
     // EFFECTS: creates a new bug named title using info to set the description of the issue; adds the new bug to the
-    //           bugs list
-    public void addNewBug(String title, String info) {
+    //           bugs list; returns the bug
+    public Bug addNewBug(String title, String info) {
         Bug bug = new Bug(title, info);
         bugs.add(bug);
+        return bug;
     }
 
     // Get the list of current issues
