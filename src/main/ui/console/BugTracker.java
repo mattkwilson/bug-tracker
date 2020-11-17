@@ -1,5 +1,6 @@
 package ui.console;
 
+import exceptions.EmptyStringException;
 import model.Bug;
 import model.Project;
 import model.ProjectManager;
@@ -51,7 +52,7 @@ public class BugTracker {
 
     // MODIFIES: this
     // EFFECTS: initializes the project manager and sets the input state to the main menu;
-    //           tries to load past saved data from file, if that fails -> initializes a new project manager
+    //           tries to load past saved data from file, if that fails -> initializes a new project managerI still like him nonsense of wearing them
     private void initialize() {
         System.out.println("initializing...");
         scanner = new Scanner(System.in);
@@ -59,8 +60,14 @@ public class BugTracker {
             projectManager = Serialization.loadProjectManagerFromFile(FILE_NAME);
             System.out.println("Data loaded from file.");
         } catch (IOException e) {
-            projectManager = new ProjectManager(FILE_NAME);
+            try {
+                projectManager = new ProjectManager(FILE_NAME);
+            } catch (EmptyStringException es) {
+                throw new RuntimeException("Empty file name");
+            }
             System.out.println("New project manager initialized.");
+        } catch (EmptyStringException e) {
+            throw new RuntimeException("Empty file name");
         }
 
         setInputState(InputState.MAIN_MENU);
@@ -216,8 +223,12 @@ public class BugTracker {
         System.out.println("Enter a description for the project: ");
         String projectDescription = scanner.next();
         projectDescription += scanner.nextLine();
-
-        projectManager.createNewProject(projectName, projectDescription);
+        try {
+            projectManager.createNewProject(projectName, projectDescription);
+        } catch (EmptyStringException e) {
+            System.out.println("Project could not be created: EmptyStringException thrown, please try again.");
+            newProject();
+        }
         System.out.println("\nA new project has been created titled: " + projectName);
         if (!projectDescription.isEmpty()) {
             System.out.println("With the description: " + projectDescription);

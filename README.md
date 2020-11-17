@@ -31,3 +31,11 @@ can create you may run into problems and issues that you have to deal with, and 
 - As a user, I want to be able to select a project and view a list of the unresolved bugs in that project
 - As a user, I want my projects to be automatically saved to file when I exit the application
 - As a user, I want to be able to select and load a project that has been previously saved to file
+
+## Phase 4: Task 2
+
+>Test and design a class in your model package that is robust.
+
+**Class:** _ProjectManager_
+
+**Methods:** _getProjectByIndex_, _createNewProject_, _ProjectManager_

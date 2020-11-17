@@ -36,7 +36,6 @@ public class Bug extends Serializable {
     }
 
     // Set bug as resolved
-    // REQUIRES: isResolved == false
     // MODIFIES: this
     // EFFECTS: marks the bug as a resolved
     public void setResolved() {

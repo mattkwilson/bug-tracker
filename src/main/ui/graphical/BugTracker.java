@@ -1,5 +1,6 @@
 package ui.graphical;
 
+import exceptions.EmptyStringException;
 import model.ProjectManager;
 import persistence.Serialization;
 import ui.Utility;
@@ -34,13 +35,23 @@ public class BugTracker extends JFrame {
                     "Would you like to load in your previously saved projects?",
                     "Bug Tracker Loading", JOptionPane.YES_NO_OPTION);
             if (result != JOptionPane.YES_OPTION) {
-                projectManager = new ProjectManager(FILE_NAME);
+                try {
+                    projectManager = new ProjectManager(FILE_NAME);
+                } catch (Exception e) {
+                    throw new RuntimeException("Failed to initialize the project manager");
+                }
             } else {
                 Utility.playAudio("220171__gameaudio__flourish-spacey-1.wav");
             }
         } catch (IOException e) {
-            System.out.println("Failed loading project manager. New project manager initialized.");
-            projectManager = new ProjectManager(FILE_NAME);
+            System.out.println("Failed loading project manager. New project manager initializing.");
+            try {
+                projectManager = new ProjectManager(FILE_NAME);
+            } catch (Exception es) {
+                throw new RuntimeException("Failed to initialize the project manager: Empty file name");
+            }
+        } catch (EmptyStringException e) {
+            throw new RuntimeException("Failed to load project manager: Empty file name");
         }
         add(new ProjectsPane(projectManager), BorderLayout.CENTER);
     }

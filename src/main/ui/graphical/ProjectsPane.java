@@ -1,5 +1,6 @@
 package ui.graphical;
 
+import exceptions.EmptyStringException;
 import model.Project;
 import model.ProjectManager;
 import ui.Utility;
@@ -62,8 +63,8 @@ public class ProjectsPane extends JPanel implements ActionListener {
     //           pane; if the dialog is cancelled or closed then nothing happens;
     //           plays audio sound if project is successfully created
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("addProject")) {
+    public void actionPerformed(ActionEvent event) {
+        if (event.getActionCommand().equals("addProject")) {
             JTextField projectNameTextField = new JTextField("Project Name");
             JTextField projectDescriptionTextField = new JTextField("Enter a description...");
             JComponent[] inputs = new JComponent[] {
@@ -78,10 +79,14 @@ public class ProjectsPane extends JPanel implements ActionListener {
                         JOptionPane.DEFAULT_OPTION);
             } while (projectNameTextField.getText().isEmpty() || projectDescriptionTextField.getText().isEmpty());
             if (result == JOptionPane.OK_OPTION) {
-                Project project = projectManager.createNewProject(projectNameTextField.getText(),
-                        projectDescriptionTextField.getText());
-                addProject(project);
-                Utility.playAudio("220175__gameaudio__pop-click.wav");
+                try {
+                    Project project = projectManager.createNewProject(projectNameTextField.getText(),
+                            projectDescriptionTextField.getText());
+                    addProject(project);
+                    Utility.playAudio("220175__gameaudio__pop-click.wav");
+                } catch (EmptyStringException e) {
+                    System.out.println("Tried to create a project with an empty name");
+                }
             }
         }
     }

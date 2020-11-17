@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.EmptyStringException;
 import model.ProjectManager;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,14 +36,17 @@ public final class Serialization {
     }
 
     // Load a Project Manager
-    // EFFECTS: loads a Project Manager from file;
+    // EFFECTS: loads a Project Manager from file and returns it;
+    //           throws a EmptyStringException if the fileName is empty
     //           throws an IOException if an error occurs when reading the file;
     //           throws a JSONException if the file can not be parsed
-    public static ProjectManager loadProjectManagerFromFile(String fileName) throws IOException, JSONException {
+    //           returns null if the project can not be initialized
+    public static ProjectManager loadProjectManagerFromFile(String fileName) throws EmptyStringException,
+            IOException, JSONException {
+        ProjectManager projectManager = new ProjectManager(fileName);
         String path = DATA_PATH + fileName + DATA_EXTENSION;
         String fileData = readFile(Paths.get(path));
         JSONObject dataObject = new JSONObject(fileData);
-        ProjectManager projectManager = new ProjectManager(fileName);
         projectManager.parseDataObject(dataObject);
         return projectManager;
     }

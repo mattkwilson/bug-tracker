@@ -1,10 +1,10 @@
 package persistence;
 
+import exceptions.EmptyStringException;
 import model.Bug;
 import model.Project;
 import model.ProjectManager;
 import org.json.JSONException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -27,6 +27,8 @@ public class SerializationTest {
             fail("FileNotFoundException was expected.");
         } catch (FileNotFoundException e) {
             // success
+        } catch (EmptyStringException e) {
+            fail();
         }
     }
 
@@ -40,6 +42,8 @@ public class SerializationTest {
             assertEquals(0, projectManager.getSize());
         } catch (IOException e) {
             fail(e.toString());
+        } catch (EmptyStringException e) {
+            fail();
         }
     }
 
@@ -63,6 +67,20 @@ public class SerializationTest {
             testProjectManagerForBugTrackerTestLoadData(projectManager);
         } catch (IOException e) {
             fail(e.toString());
+        } catch (EmptyStringException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void loadProjectManagerFromFileTestEmptyFileName() {
+        try {
+            ProjectManager projectManager = Serialization.loadProjectManagerFromFile("");
+            fail("EmptyStringException was expected.");
+        } catch (EmptyStringException e) {
+            // success
+        } catch (Exception e) {
+            fail();
         }
     }
 
@@ -73,6 +91,8 @@ public class SerializationTest {
             fail("IOException was expected.");
         } catch (IOException e) {
             // success
+        } catch (EmptyStringException e) {
+            fail();
         }
     }
 
@@ -85,6 +105,8 @@ public class SerializationTest {
             // success
         } catch (IOException e) {
             fail("The file could not be read.");
+        } catch (EmptyStringException e) {
+            fail();
         }
     }
 
@@ -95,6 +117,8 @@ public class SerializationTest {
             assertEquals(0, projectManager.getSize());
         } catch (IOException e) {
             fail("The file could not be read.");
+        } catch (EmptyStringException e) {
+            fail();
         }
     }
 
@@ -105,6 +129,8 @@ public class SerializationTest {
             testProjectManagerForBugTrackerTestLoadData(projectManager);
         } catch (IOException e) {
             fail("The file could not be read.");
+        } catch (EmptyStringException e) {
+            fail();
         }
     }
 

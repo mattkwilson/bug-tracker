@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.EmptyStringException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,23 +14,50 @@ public class ProjectManagerTest {
 
     @BeforeEach
     public void setup() {
-        projectManager = new ProjectManager("");
+        try {
+            projectManager = new ProjectManager("fileName");
+        } catch (EmptyStringException e) {
+            System.out.println("This was not supposed to happen");
+        }
     }
 
     @Test
-    public void constructorTest() {
+    public void constructorTestThrowsEmptyStringException() {
+        try {
+            projectManager = new ProjectManager("");
+            fail();
+        } catch (EmptyStringException e) {
+            // pass
+        }
+    }
+
+    @Test
+    public void constructorTestNoException() {
+        try {
+            projectManager = new ProjectManager("fileName");
+        } catch (EmptyStringException e) {
+            fail();
+        }
         assertEquals(0, projectManager.getSize());
     }
 
     @Test
     public void createNewProjectTest() {
-        projectManager.createNewProject("project1", "description1");
+        try {
+            projectManager.createNewProject("project1", "description1");
+        } catch (EmptyStringException e) {
+            fail();
+        }
         assertEquals(1, projectManager.getSize());
         Project project1 = projectManager.getProjectByIndex(0);
         assertEquals("project1", project1.getName());
         assertEquals("description1", project1.getDescription());
 
-        projectManager.createNewProject("project2", "description2");
+        try {
+            projectManager.createNewProject("project2", "description2");
+        } catch (EmptyStringException e) {
+            fail();
+        }
         assertEquals(2, projectManager.getSize());
         Project project2 = projectManager.getProjectByIndex(1);
         assertEquals("project2", project2.getName());
@@ -37,10 +65,24 @@ public class ProjectManagerTest {
     }
 
     @Test
+    public void createNewProjectTestThrowEmptyStringException() {
+        try {
+            projectManager.createNewProject("", "description2");
+            fail();
+        } catch (EmptyStringException e) {
+            // pass
+        }
+    }
+
+    @Test
     public void getProjectByIndexTest() {
-        projectManager.createNewProject("project1", "description1");
-        projectManager.createNewProject("project2", "description2");
-        projectManager.createNewProject("project3", "description3");
+        try {
+            projectManager.createNewProject("project1", "description1");
+            projectManager.createNewProject("project2", "description2");
+            projectManager.createNewProject("project3", "description3");
+        } catch (EmptyStringException e) {
+            fail();
+        }
 
         Project project1 = projectManager.getProjectByIndex(0);
         assertEquals("project1", project1.getName());
@@ -54,18 +96,51 @@ public class ProjectManagerTest {
     }
 
     @Test
+    public void getProjectByIndexTestThrowsIndexOutOfBoundsException() {
+        try {
+            projectManager.getProjectByIndex(0);
+        } catch (Exception e) {
+            // pass
+        }
+
+        try {
+            projectManager.createNewProject("project1", "description1");
+            projectManager.createNewProject("project2", "description2");
+            projectManager.getProjectByIndex(2);
+        } catch (EmptyStringException e) {
+            fail();
+        } catch (IndexOutOfBoundsException e) {
+            // pass
+        }
+
+        try {
+            projectManager.getProjectByIndex(-1);
+        } catch (Exception e) {
+            // pass
+        }
+    }
+
+    @Test
     public void getSizeTest() {
-        assertEquals(0, projectManager.getSize());
-        projectManager.createNewProject("project1", "description1");
-        assertEquals(1, projectManager.getSize());
-        projectManager.createNewProject("project2", "description2");
-        assertEquals(2, projectManager.getSize());
+        try {
+            assertEquals(0, projectManager.getSize());
+            projectManager.createNewProject("project1", "description1");
+            assertEquals(1, projectManager.getSize());
+            projectManager.createNewProject("project2", "description2");
+            assertEquals(2, projectManager.getSize());
+        } catch (EmptyStringException e) {
+            fail();
+        }
     }
 
     @Test
     public void getDataObjectTest() {
-        projectManager.createNewProject("projectOne", "");
-        projectManager.createNewProject("projectTwo", "");
+        try {
+            projectManager.createNewProject("projectOne", "");
+            projectManager.createNewProject("projectTwo", "");
+        } catch (EmptyStringException e) {
+            fail();
+        }
         JSONObject dataObject = projectManager.getDataObject();
 
         JSONArray projectsData = dataObject.getJSONArray("projects");
