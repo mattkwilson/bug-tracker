@@ -1,4 +1,4 @@
-package ui;
+package ui.graphical;
 
 import ui.exceptions.AudioException;
 import ui.exceptions.InvalidPathException;
@@ -10,7 +10,7 @@ import java.awt.*;
 import java.io.File;
 
 // static utility class for handling audio and image resources
-public final class Utility {
+final class Utility {
 
     // EFFECTS: if the fileName is valid; creates a new image icon from the given fileName, then scales it to the given
     //           size; else it throws a InvalidPathException

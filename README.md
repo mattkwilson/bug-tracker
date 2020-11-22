@@ -39,3 +39,10 @@ can create you may run into problems and issues that you have to deal with, and 
 **Class:** _ProjectManager_
 
 **Methods:** _getProjectByIndex_, _createNewProject_, _ProjectManager_
+
+## Phase 4: Task 3
+
+**If I had more time...**
+- I would try to reduce coupling between the classes in the graphics package that make up the GUI
+- I would consider implementing the observer pattern so that the graphics could observe changes to the projects and 
+update the UI accordingly

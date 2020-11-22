@@ -1,7 +1,6 @@
 package ui.graphical;
 
 import model.Bug;
-import ui.Utility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +11,7 @@ import static java.awt.GridBagConstraints.EAST;
 import static java.awt.GridBagConstraints.WEST;
 
 // A panel hosting information and actions associated with a bug
-public class BugPanel extends JPanel implements ActionListener {
+class BugPanel extends JPanel implements ActionListener {
     private final BugsPane bugsPane;
     private final Bug bug;
 

@@ -9,7 +9,7 @@ import java.awt.*;
 import static java.awt.GridBagConstraints.HORIZONTAL;
 
 // The main panel hosting all of the bug related information
-public class BugsPane extends JPanel {
+class BugsPane extends JPanel {
     private final Project project;
     private final JPanel content;
     private final JPanel archivedContent;

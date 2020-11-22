@@ -3,7 +3,6 @@ package ui.graphical;
 import exceptions.EmptyStringException;
 import model.Project;
 import model.ProjectManager;
-import ui.Utility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // Main panel for hosting all project information
-public class ProjectsPane extends JPanel implements ActionListener {
+class ProjectsPane extends JPanel implements ActionListener {
     private ProjectManager projectManager;
     private JTabbedPane projectTabs;
     private ImageIcon projectIcon;

@@ -1,18 +1,14 @@
 package ui.graphical;
 
 import model.Project;
-import ui.Utility;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 // A panel for hosting information about a single project
-public class ProjectPanel extends JPanel implements ActionListener {
+class ProjectPanel extends JPanel implements ActionListener {
     private Project project;
     private BugsPane bugsPane;
 

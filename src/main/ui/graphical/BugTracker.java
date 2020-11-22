@@ -3,7 +3,6 @@ package ui.graphical;
 import exceptions.EmptyStringException;
 import model.ProjectManager;
 import persistence.Serialization;
-import ui.Utility;
 
 import javax.swing.*;
 import java.awt.*;
