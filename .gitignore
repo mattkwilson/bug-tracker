@@ -1,2 +1,6 @@
+.idea/
+lib/
+images/
+sounds/
 *.class
 workspace.xml
